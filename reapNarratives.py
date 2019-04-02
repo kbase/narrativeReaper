@@ -17,7 +17,7 @@ def get_proxy_map(proxyMapUrl):
 def main():
     proxyMapUrl='https://next.kbase.us/proxy_map'
     pickleFile='pickle.python'
-    pickle.dump(get_proxy_map(proxyMapUrl).json() , pickleFile)
+    pickle.dump(get_proxy_map(proxyMapUrl) , pickleFile)
 
 if __name__ == "__main__":
     main()

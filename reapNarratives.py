@@ -12,7 +12,7 @@ urllib3.disable_warnings()
 def pickleFile(filename):
     pickleFh = open (filename)
     pickle.dump(get_proxy_map(proxyMapUrl) , pickleFh )
-    close pickleFh
+    pickleFh.close()
 
 def get_proxy_map(proxyMapUrl):
     proxy_map = requests.get(proxyMapUrl)

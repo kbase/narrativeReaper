@@ -16,6 +16,7 @@ def est_connections():
     allConnections = psutil.net_connections()
 #    for conn in allConnections:
 #        pp.pprint(conn)
+    return allConnections
 
 def get_proxy_map(proxyMapUrl):
     proxy_map = requests.get(proxyMapUrl)

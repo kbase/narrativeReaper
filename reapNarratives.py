@@ -17,10 +17,15 @@ def get_proxy_map(proxyMapUrl):
     proxy_map = requests.get(proxyMapUrl)
     return proxy_map.json()
 
+def marker(proxyMap):
+    for session in proxyMap:
+        print session['last_ip']
+
 def main():
     pp = pprint.PrettyPrinter(indent=4)
     proxyMapUrl='https://next.kbase.us/proxy_map'
-    pp.pprint(get_proxy_map(proxyMapUrl))
+    marker(get_proxy_map(proxyMapUrl))
+#    pp.pprint(get_proxy_map(proxyMapUrl))
     pp.pprint(est_connections())
 
 if __name__ == "__main__":

@@ -10,7 +10,7 @@ import urllib3
 urllib3.disable_warnings()
 
 def pickleFile(filename):
-    pickleFh = open (filename)
+    pickleFh = open (filename, 'w')
     pickle.dump(get_proxy_map(proxyMapUrl) , pickleFh )
     pickleFh.close()
 

@@ -8,7 +8,7 @@ urllib3.disable_warnings()
 
 def get_proxy_map(proxyMapUrl, targetHostname):
     headers = { 'Host': targetHostname }
-    proxy_map = requests.get(proxyMapUrl)
+    proxy_map = requests.get(proxyMapUrl, headers=headers)
     return proxy_map
 
 def main():

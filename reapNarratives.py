@@ -3,8 +3,9 @@
 import requests
 import sys
 import json
-import psutil
+#import psutil
 import pprint
+import docker
 
 import urllib3
 # there is a way to only disable InsecurePlatformWarning but I can't find it now
@@ -13,7 +14,11 @@ urllib3.disable_warnings()
 pp = pprint.PrettyPrinter(indent=4)
 
 def est_connections():
-    allConnections = psutil.net_connections()
+    containerName='r-next-core-nginx-1-edfd1207'
+    dockerClient = docker.from_env()
+    nginxContainer = dockerClient.containers.get(containerName)
+    allConnections = nginxContainer.exec_run('netstat -nt')
+#    allConnections = psutil.net_connections()
 #    for conn in allConnections:
 #        pp.pprint(conn)
     return allConnections

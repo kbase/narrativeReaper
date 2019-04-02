@@ -3,15 +3,14 @@
 import requests
 import sys
 import json
+import psutil
 
 import urllib3
 # there is a way to only disable InsecurePlatformWarning but I can't find it now
 urllib3.disable_warnings()
 
 def est_connections():
-    tcpFilePath = '/proc/net/tcp'
-    tcpstats = open(tcpFilePath)
-    print tcpstats
+    return psutil.net_connections()
 
 def get_proxy_map(proxyMapUrl):
     proxy_map = requests.get(proxyMapUrl)

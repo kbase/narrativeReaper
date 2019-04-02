@@ -14,8 +14,8 @@ pp = pprint.PrettyPrinter(indent=4)
 
 def est_connections():
     allConnections = psutil.net_connections()
-    for conn in allConnections:
-        pp.pprint(conn)
+#    for conn in allConnections:
+#        pp.pprint(conn)
 
 def get_proxy_map(proxyMapUrl):
     proxy_map = requests.get(proxyMapUrl)
@@ -30,7 +30,7 @@ def main():
     proxyMapUrl='https://next.kbase.us/proxy_map'
     marker(get_proxy_map(proxyMapUrl))
 #    pp.pprint(get_proxy_map(proxyMapUrl))
-#    pp.pprint(est_connections())
+    pp.pprint(est_connections())
 
 if __name__ == "__main__":
     main()

@@ -12,7 +12,7 @@ def get_proxy_map(proxyMapUrl):
 
 def main():
     proxyMapUrl='https://next.kbase.us/proxy_map'
-    print get_proxy_map(proxyMapUrl)
+    print get_proxy_map(proxyMapUrl).json()
 
 if __name__ == "__main__":
     main()

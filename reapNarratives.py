@@ -6,7 +6,7 @@ import urllib3
 # there is a way to only disable InsecurePlatformWarning but I can't find it now
 urllib3.disable_warnings()
 
-def get_proxy_map(proxyMapUrl='https://localhost/proxy_map', targetHostname):
+def get_proxy_map(proxyMapUrl, targetHostname):
     headers = { 'Host': targetHostname }
     proxy_map = requests.get(proxyMapUrl)
     return proxy_map

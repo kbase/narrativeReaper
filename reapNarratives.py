@@ -4,6 +4,7 @@ import requests
 import sys
 import json
 import psutil
+import pprint
 
 import urllib3
 # there is a way to only disable InsecurePlatformWarning but I can't find it now
@@ -17,9 +18,10 @@ def get_proxy_map(proxyMapUrl):
     return proxy_map.json()
 
 def main():
+    pp = pprint.PrettyPrinter(indent=4)
     proxyMapUrl='https://next.kbase.us/proxy_map'
-    print get_proxy_map(proxyMapUrl)
-    print est_connections()
+    pp.pprint(get_proxy_map(proxyMapUrl))
+    pp.pprint(est_connections())
 
 if __name__ == "__main__":
     main()

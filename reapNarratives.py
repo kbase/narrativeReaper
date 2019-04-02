@@ -11,7 +11,7 @@ urllib3.disable_warnings()
 
 def get_proxy_map(proxyMapUrl):
     proxy_map = requests.get(proxyMapUrl)
-    return proxy_map
+    return proxy_map.json()
 
 def pickleFile(data,filename):
     pickleFh = open (filename, 'w')

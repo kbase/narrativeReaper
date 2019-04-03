@@ -20,6 +20,8 @@ def est_connections():
     netstatOut = subprocess.check_output(['docker','exec',containerName,'netstat','-nt'])
     for line in netstatOut.split('\n'):
         splitLine = line.split()
+        if splitLine[0] != 'tcp':
+            continue
         print splitLine[4]
 #    dockerClient = docker.from_env()
 #    print dockerClient

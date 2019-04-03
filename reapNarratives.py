@@ -51,7 +51,7 @@ def est_connections(filename,containerName):
 #    for conn in allConnections:
 #        pp.pprint(conn)
 
-    save_pickle_data(connectionMap, 'proxymap.pickle')
+    save_pickle_data(connectionMap, filename)
 #    pp.pprint(connectionMap)
     return connectionMap
 

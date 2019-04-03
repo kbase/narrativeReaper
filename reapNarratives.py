@@ -73,7 +73,13 @@ def marker(proxyMap):
 
 def main():
     # needed only to initialize
+    # put this in an if which sees if file exists and inits if not
 #    save_pickle_data({}, 'proxymap.pickle')
+
+# read in connections (from pickle file and current)
+# find connections in proxy_map but aged out/idle: DELETE and remove from connection dict
+# find connections no longer in proxy_map: remove from connection dict
+# save pickle file
 
     proxyMapUrl='https://next.kbase.us/proxy_map'
     marker(get_proxy_map(proxyMapUrl))

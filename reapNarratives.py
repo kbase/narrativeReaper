@@ -4,12 +4,13 @@ import requests
 import sys
 import os
 import json
-#import psutil
 import pprint
 import docker
 import subprocess
 import pickle
 import time
+# was hoping to use psutil.net_connections() but the container runs in a different namespace
+#import psutil
 
 import urllib3
 # there is a way to only disable InsecurePlatformWarning but I can't find it now

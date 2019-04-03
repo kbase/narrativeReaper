@@ -85,7 +85,7 @@ def reaper(currentProxyMap, localProxyMap, shutdownUrl,estConnections,timeout):
             if session['session_id'] not in localProxyMap:
                 sys.stderr.write("session " + session['session_id'] + " not in local proxy map, creating dummy entry\n")
                 localProxyMap[session['session_id']] = session
-                localProxyMap[session['session_id']]['last_seen'] = now()
+                localProxyMap[session['session_id']]['last_seen'] = now
 #            pp.pprint(localProxyMap[session['session_id']])
             sessionAge = now - float(localProxyMap[session['session_id']]['last_seen'])
             if sessionAge > timeout:

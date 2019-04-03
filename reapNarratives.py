@@ -28,14 +28,12 @@ def save_pickle_data(obj, filename):
     data = pickle.dump(obj, fh)
     fh.close()
     
-def est_connections():
+def est_connections(filename,containerName):
 
-    filename='proxymap.pickle'
     connectionMap = read_pickle_data(filename)
 #    pp.pprint(connectionMap)
     timestamp = time.time()
 
-    containerName='r-next-core-nginx-1-edfd1207'
     netstatOut = subprocess.check_output(['docker','exec',containerName,'netstat','-nt'])
     for line in netstatOut.split('\n'):
         if 'ESTABLISHED' not in line:
@@ -61,8 +59,8 @@ def get_proxy_map(proxyMapUrl):
     proxy_map = requests.get(proxyMapUrl)
     return proxy_map.json()
 
-def marker(proxyMap):
-    estConnections = est_connections()
+def marker(proxyMap,pickleFile,nginxContainerName):
+    estConnections = est_connections(pickleFile,nginxContainerName)
     for session in proxyMap:
         # skip provisioned containers
         if session['state'] == 'queued':
@@ -77,6 +75,7 @@ def main():
     # put this in an if which sees if file exists and inits if not
 
     pickleFile = 'proxymap.pickle'
+    nginxContainerName = 'r-ci-core-nginx-1-352089d2'
     proxyMapUrl=sys.argv[1]
 
     if (not os.path.isfile('/path/to/file')):
@@ -87,7 +86,7 @@ def main():
 # find connections no longer in proxy_map: remove from connection dict
 # save pickle file
 
-    marker(get_proxy_map(proxyMapUrl))
+    marker(get_proxy_map(proxyMapUrl),pickleFile,nginxContainerName)
 #    pp.pprint(get_proxy_map(proxyMapUrl))
 #    pp.pprint(est_connections())
 

@@ -128,9 +128,10 @@ def main():
     parser.add_argument('--nginxContainerName')
     parser.add_argument('--pickleFilePath')
     parser.add_argument('--shutdownUrl')
+    parser.add_argument('--verbose', '-v', action='store_true')
     parser.add_argument('--timeout', type=int, default=600)
     args = parser.parse_args()
-#    print args
+    print args.verbose
 
 #    proxyMapUrl=sys.argv[1]
 #    nginxContainerName = sys.argv[2]

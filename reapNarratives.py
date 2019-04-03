@@ -131,6 +131,7 @@ def main():
     parser.add_argument('--timeout', type=int)
     args = parser.parse_args()
     print args
+    exit
 
     proxyMapUrl=sys.argv[1]
     nginxContainerName = sys.argv[2]

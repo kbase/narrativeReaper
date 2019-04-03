@@ -65,16 +65,18 @@ def marker(proxyMap,shutdownUrl,estConnections,timeout):
                 print session['session_id'] + ' in estConnections to be timed out ' + str(sessionAge) + ' seconds old'
                 if shutdown_session(shutdownUrl,session['session_id']):
                     # pop returns the value and removes it from the dict
-                    estConnections.pop(session['proxy_target'])
+                    proxyMap.pop(session['proxy_target'])
                 else:
                     sys.stderr.write("unable to delete session " + session['session_id'] + " !\n")
             else:
-                print session['session_id'] + ' in estConnections ' + str(sessionAge) + ' seconds old, not timing out'
+                print session['session_id'] + ' in estConnections ' + str(sessionAge) + ' seconds old, updating local map'
+                proxyMap[session['session_id']] = session
+                proxyMap[session['session_id']]['age'] = sessionAge
         else:
             print session['session_id'] + ' not in estConnections, creating dummy value'
-            estConnections[session['proxy_target']] = now - 300
+#            estConnections[session['proxy_target']] = now - 300
 
-    return estConnections
+    return proxyMap
 
 def main():
     # needed only to initialize
@@ -95,10 +97,10 @@ def main():
 # find connections no longer in proxy_map: remove from connection dict
 # save pickle file
 
-    oldConnectionMap = read_pickle_data(pickleFile)
+    oldProxyMap = read_pickle_data(pickleFile)
     estConnections = est_connections(oldConnectionMap, nginxContainerName)
-    newConnectionMap = marker(get_proxy_map(proxyMapUrl), shutdownUrl, estConnections, int(timeout))
-    save_pickle_data(newConnectionMap, pickleFile)
+    newProxyMap = marker(get_proxy_map(proxyMapUrl), shutdownUrl, estConnections, int(timeout))
+    save_pickle_data(newProxyMap, pickleFile)
 #    pp.pprint(get_proxy_map(proxyMapUrl))
 #    pp.pprint(est_connections())
 

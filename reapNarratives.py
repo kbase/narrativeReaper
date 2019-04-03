@@ -51,13 +51,16 @@ def get_proxy_map(proxyMapUrl):
     proxy_map = requests.get(proxyMapUrl)
     return proxy_map.json()
 
-def marker(proxyMap,estConnections):
+def marker(proxyMap,estConnections,timeout):
+    now = time.time()
+
     for session in proxyMap:
         # skip provisioned containers
         if session['state'] == 'queued':
             continue
         if session['proxy_target'] in estConnections:
-            print session['session_id'] + ' in estConnections ' + str(estConnections[session['proxy_target']])
+            sessionAge = now - session['proxy_target']
+            print session['session_id'] + ' in estConnections ' + str(sessionAge) + ' seconds old
         else:
             print session['session_id'] + ' not in estConnections '
 
@@ -68,6 +71,7 @@ def main():
     proxyMapUrl=sys.argv[1]
     nginxContainerName = sys.argv[2]
     pickleFile = sys.argv[3]
+    timeout = 600
 
     if (not os.path.isfile(pickleFile)):
         sys.stderr.write("creating new pickle file " + pickleFile + "\n")
@@ -79,7 +83,7 @@ def main():
 # save pickle file
 
     estConnections = est_connections(pickleFile, nginxContainerName)
-    marker(get_proxy_map(proxyMapUrl), estConnections)
+    marker(get_proxy_map(proxyMapUrl), estConnections,timeout)
 #    pp.pprint(get_proxy_map(proxyMapUrl))
 #    pp.pprint(est_connections())
 

@@ -74,8 +74,9 @@ def marker(currentProxyMap, localProxyMap, shutdownUrl,estConnections,timeout):
                 localProxyMap[session['session_id']] = session
                 localProxyMap[session['session_id']]['age'] = sessionAge
         else:
-            print session['session_id'] + ' not in estConnections, creating dummy value'
-#            estConnections[session['proxy_target']] = now - 300
+            print session['session_id'] + ' not in estConnections, creating or updating local map'
+            localProxyMap[session['session_id']] = session
+            localProxyMap[session['session_id']]['age'] = sessionAge
 
     return localProxyMap
 

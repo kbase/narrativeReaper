@@ -79,6 +79,7 @@ def main():
     nginxContainerName = sys.argv[2]
 
     if (not os.path.isfile(pickleFile)):
+        sys.stderr.write("creating new pickle file " + pickleFile + "\n")
         save_pickle_data({}, pickleFile)
 
 # read in connections (from pickle file and current)

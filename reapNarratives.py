@@ -56,10 +56,16 @@ def get_proxy_map(proxyMapUrl):
 def marker(currentProxyMap, localProxyMap, shutdownUrl,estConnections,timeout):
     now = time.time()
 
+    currentProxyMapUsers = []
+    
     for session in currentProxyMap:
         # skip provisioned containers
         if session['state'] == 'queued':
             continue
+
+        # real username in proxy map, track to compare to local map
+        currentProxyMapUsers.append(session['session_id'])
+
         if session['proxy_target'] in estConnections:
             print session['session_id'] + ' currently has an established connection, updating local map'
 # use what's currently in active proxy map, in case it's a new connection
@@ -82,12 +88,9 @@ def marker(currentProxyMap, localProxyMap, shutdownUrl,estConnections,timeout):
 #            localProxyMap[session['session_id']] = session
 #            localProxyMap[session['session_id']]['age'] = sessionAge
 
-    pp.pprint (localProxyMap)
-
-    for localSession in localProxyMap:
-        pp.pprint (localSession)
-        if localSession['session_id'] not in currentProxyMap:
-            print localSession['session_id'] + ' not in current proxy map, removing from local map'
+    for localSessionId in localProxyMap:
+        if localSessionId not in currentProxyMapUsers:
+            print localSessionId + ' not in current proxy map, removing local map entry'
 
     return localProxyMap
 

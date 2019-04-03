@@ -63,18 +63,18 @@ def marker(currentProxyMap, localProxyMap, shutdownUrl,estConnections,timeout):
         if session['proxy_target'] in estConnections:
             sessionAge = now - estConnections[session['proxy_target']]
             if sessionAge > timeout:
-                print session['session_id'] + ' in estConnections to be timed out ' + str(sessionAge) + ' seconds old'
+                print session['session_id'] + ' in localProxyMap to be timed out ' + str(sessionAge) + ' seconds old'
                 if shutdown_session(shutdownUrl,session['session_id']):
                     # pop returns the value and removes it from the dict
                     localProxyMap.pop(session['proxy_target'])
                 else:
                     sys.stderr.write("unable to delete session " + session['session_id'] + " !\n")
             else:
-                print session['session_id'] + ' in estConnections ' + str(sessionAge) + ' seconds old, updating local map'
+                print session['session_id'] + ' in localProxyMap ' + str(sessionAge) + ' seconds old, updating local map'
                 localProxyMap[session['session_id']] = session
                 localProxyMap[session['session_id']]['age'] = sessionAge
         else:
-            print session['session_id'] + ' not in estConnections, creating dummy value'
+            print session['session_id'] + ' not in localProxyMap, creating dummy value'
 #            estConnections[session['proxy_target']] = now - 300
 
     return localProxyMap

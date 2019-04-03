@@ -32,7 +32,7 @@ def save_pickle_data(obj, filename):
 def shutdown_session(url,sessionId):
     return 0
 
-def est_connections(connectionMap,containerName):
+def est_connections(containerName):
 
     timestamp = time.time()
     connectionMap = {}

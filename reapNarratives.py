@@ -17,7 +17,8 @@ pp = pprint.PrettyPrinter(indent=4)
 def est_connections():
     containerName='r-next-core-nginx-1-edfd1207'
     netstatOut = subprocess.check_output(['docker','exec',containerName,'netstat','-nt'])
-    pp.pprint(netstatOut)
+    for line in netstatOut:
+        print line
 #    dockerClient = docker.from_env()
 #    print dockerClient
 #    nginxContainer = dockerClient.containers.get(containerName)
@@ -25,7 +26,7 @@ def est_connections():
 #    allConnections = psutil.net_connections()
 #    for conn in allConnections:
 #        pp.pprint(conn)
-    return allConnections
+#    return allConnections
 
 def get_proxy_map(proxyMapUrl):
     proxy_map = requests.get(proxyMapUrl)

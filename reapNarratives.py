@@ -31,7 +31,7 @@ def est_connections():
 
     filename='proxymap.pickle'
     connectionMap = read_pickle_data(filename)
-    pp.pprint(connectionMap)
+#    pp.pprint(connectionMap)
     timestamp = time.time()
 
     containerName='r-next-core-nginx-1-edfd1207'
@@ -53,7 +53,7 @@ def est_connections():
 #        pp.pprint(conn)
 
     save_pickle_data(connectionMap, 'proxymap.pickle')
-    pp.pprint(connectionMap)
+#    pp.pprint(connectionMap)
     return connectionMap
 
 def get_proxy_map(proxyMapUrl):
@@ -63,7 +63,7 @@ def get_proxy_map(proxyMapUrl):
 def marker(proxyMap):
     estConnections = est_connections()
     for session in proxyMap:
-        print session['last_ip']
+        print session
 
 def main():
     # needed only to initialize

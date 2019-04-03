@@ -5,10 +5,11 @@ import os
 import pickle
 import time
 import json
-import requests
+import argparse
 # ideally would use the docker lib, for now use a subprocess to exec into the container
 import subprocess
 #import docker
+import requests
 import pprint
 # was hoping to use psutil.net_connections() but the container runs in a different namespace
 #import psutil
@@ -121,6 +122,11 @@ def reaper(currentProxyMap, localProxyMap, shutdownUrl,estConnections,timeout):
     return localProxyMap
 
 def main():
+
+    parser = argparse.ArgumentParser(description='List and by default reap old narrative containers.')
+    parser.addArgument('--proxyMapUrl')
+    args = parser.parse_args()
+    print args
 
     proxyMapUrl=sys.argv[1]
     nginxContainerName = sys.argv[2]

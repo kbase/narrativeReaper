@@ -66,7 +66,7 @@ def get_proxy_map(proxyMapUrl):
     proxy_map = requests.get(proxyMapUrl)
     return proxy_map.json()
 
-def reaper(currentProxyMap, localProxyMap, shutdownUrl,estConnections,timeout):
+def reaper(currentProxyMap, localProxyMap, shutdownUrl,estConnections,timeout, reapContainers, verbose):
     now = time.time()
 
     currentProxyMapUsers = []
@@ -95,12 +95,16 @@ def reaper(currentProxyMap, localProxyMap, shutdownUrl,estConnections,timeout):
 #            pp.pprint(localProxyMap[session['session_id']])
             sessionAge = now - float(localProxyMap[session['session_id']]['last_seen'])
             if sessionAge > timeout:
-                print session['session_id'] + ' in current proxy map to be timed out ' + str(sessionAge) + ' seconds old'
-                if shutdown_session(shutdownUrl,session['session_id']):
-                    # pop returns the value and removes it from the dict
-                    localProxyMap.pop(session['session_id'])
+                if reapContainers:
+                print session['session_id'] + ' in current proxy map to be reaped, ' + str(sessionAge) + ' seconds old'
+                    if shutdown_session(shutdownUrl,session['session_id']):
+                        # pop returns the value and removes it from the dict
+                        localProxyMap.pop(session['session_id'])
+                   else:
+                        sys.stderr.write("unable to delete current session " + session['session_id'] + " !\n")
                 else:
-                    sys.stderr.write("unable to delete current session " + session['session_id'] + " !\n")
+                    print session['session_id'] + ' in current proxy map would be reaped, ' + str(sessionAge) + ' seconds old'
+
             else:
                 print session['session_id'] + ' in current proxy map ' + str(sessionAge) + ' seconds old, not reaping'
 
@@ -148,7 +152,7 @@ def main():
 
     oldProxyMap = read_pickle_data(args.pickleFilePath)
     estConnections = est_connections(args.nginxContainerName)
-    newProxyMap = reaper(get_proxy_map(args.proxyMapUrl), oldProxyMap, args.shutdownUrl, estConnections, int(args.timeout))
+    newProxyMap = reaper(get_proxy_map(args.proxyMapUrl), oldProxyMap, args.shutdownUrl, estConnections, int(args.timeout), args.reapContainers,args.verbose)
     save_pickle_data(newProxyMap, args.pickleFilePath)
 
 #    pp.pprint(newProxyMap)

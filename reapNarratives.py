@@ -16,9 +16,21 @@ urllib3.disable_warnings()
 
 pp = pprint.PrettyPrinter(indent=4)
 
+def read_pickle_data(filename):
+    fh = open (filename)
+    data = pickle.load(fh)
+    fh.close()
+    return data
+
+def save_pickle_data(filename):
+    fh = open (filename, 'w')
+    data = pickle.dump(fh)
+    fh.close()
+    
 def est_connections():
 
-    connectionMap = {}
+    filename='proxymap.pickle'
+    connectionMap = read_pickle_data(filename)
     timestamp = time.time()
 
     containerName='r-next-core-nginx-1-edfd1207'

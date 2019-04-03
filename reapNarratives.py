@@ -65,7 +65,7 @@ def marker(currentProxyMap, localProxyMap, shutdownUrl,estConnections,timeout):
             localProxyMap[session['session_id']] = session
             localProxyMap[session['session_id']]['last_seen'] = estConnections[session['proxy_target']]
         else:
-            pp.pprint(localProxyMap[session['session_id']])
+#            pp.pprint(localProxyMap[session['session_id']])
 #            sessionAge = 0
             sessionAge = now - float(localProxyMap[session['session_id']]['last_seen'])
             if sessionAge > timeout:
@@ -75,6 +75,8 @@ def marker(currentProxyMap, localProxyMap, shutdownUrl,estConnections,timeout):
                     localProxyMap.pop(session['proxy_target'])
                 else:
                     sys.stderr.write("unable to delete session " + session['session_id'] + " !\n")
+            else:
+                print session['session_id'] + ' in proxy map ' + str(sessionAge) + ' seconds old, not reaping'
 #            print session['session_id'] + ' not in estConnections, skipping'
 #            print session['session_id'] + ' not in estConnections, age ' + str(now - float(localProxyMap['last_seen']))
 #            localProxyMap[session['session_id']] = session

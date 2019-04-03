@@ -53,7 +53,7 @@ def get_proxy_map(proxyMapUrl):
     proxy_map = requests.get(proxyMapUrl)
     return proxy_map.json()
 
-def marker(currentProxyMap, localProxyMap, shutdownUrl,estConnections,timeout):
+def reaper(currentProxyMap, localProxyMap, shutdownUrl,estConnections,timeout):
     now = time.time()
 
     currentProxyMapUsers = []
@@ -121,7 +121,7 @@ def main():
 
     oldProxyMap = read_pickle_data(pickleFile)
     estConnections = est_connections(nginxContainerName)
-    newProxyMap = marker(get_proxy_map(proxyMapUrl), oldProxyMap, shutdownUrl, estConnections, int(timeout))
+    newProxyMap = reaper(get_proxy_map(proxyMapUrl), oldProxyMap, shutdownUrl, estConnections, int(timeout))
     save_pickle_data(newProxyMap, pickleFile)
 
     pp.pprint(newProxyMap)

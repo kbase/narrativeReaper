@@ -133,13 +133,13 @@ def reaper(currentProxyMap, localProxyMap, shutdownUrl,estConnections,timeout, r
 def main():
 
     parser = argparse.ArgumentParser(description='List and by default reap old narrative containers.')
-    parser.add_argument('--proxyMapUrl')
-    parser.add_argument('--nginxContainerName')
-    parser.add_argument('--pickleFilePath')
-    parser.add_argument('--shutdownUrl')
-    parser.add_argument('--verbose', '-v', action='store_true')
-    parser.add_argument('--reapContainers', default=False, action='store_true')
-    parser.add_argument('--timeout', type=int, default=600)
+    parser.add_argument('--proxyMapUrl', help='URL to the live proxy_map')
+    parser.add_argument('--nginxContainerName', help='Name of the nginx container')
+    parser.add_argument('--pickleFilePath', help='Path to pickle file which will contain the local proxy map')
+    parser.add_argument('--shutdownUrl', help='Base URL to shut down a narrative session (should call narrative_shutdown_noauth in proxy_mgr.lua)')
+    parser.add_argument('--verbose', '-v', action='store_true', help='Print messages about map state')
+    parser.add_argument('--reapContainers', default=False, action='store_true', help='Reap containers (default is to list old containers only)')
+    parser.add_argument('--timeout', type=int, default=600, help='Sessions older than this will be reaped/listed (default: 600)')
     args = parser.parse_args()
 
 #    proxyMapUrl=sys.argv[1]

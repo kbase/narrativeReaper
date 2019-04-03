@@ -38,6 +38,8 @@ def est_connections():
     for line in netstatOut.split('\n'):
         if 'ESTABLISHED' not in line:
             continue
+        if '8888' not in line:
+            continue
         splitLine = line.split()
         connectionMap[splitLine[4]] = timestamp
 

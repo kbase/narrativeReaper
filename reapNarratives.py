@@ -64,6 +64,9 @@ def est_connections(containerName):
 
 def get_proxy_map(proxyMapUrl):
     proxy_map = requests.get(proxyMapUrl)
+    if proxy_map.status_code != 200:
+        print "Got a non-200 response from proxy map!" + str(proxy_map.status_code)
+        exit 1
     return proxy_map.json()
 
 def reaper(currentProxyMap, localProxyMap, shutdownUrl,estConnections,timeout, reapContainers, verbose):

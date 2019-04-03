@@ -29,9 +29,8 @@ def save_pickle_data(obj, filename):
     data = pickle.dump(obj, fh)
     fh.close()
     
-def est_connections(filename,containerName):
+def est_connections(connectionMap,containerName):
 
-    connectionMap = read_pickle_data(filename)
     timestamp = time.time()
 
     # would prefer to use docker lib but not working at the moment
@@ -44,7 +43,6 @@ def est_connections(filename,containerName):
         splitLine = line.split()
         connectionMap[splitLine[4]] = timestamp
 
-    save_pickle_data(connectionMap, filename)
     return connectionMap
 
 def get_proxy_map(proxyMapUrl):
@@ -62,10 +60,15 @@ def marker(proxyMap,estConnections,timeout):
             sessionAge = now - estConnections[session['proxy_target']]
             if sessionAge > timeout:
                 print session['session_id'] + ' in estConnections to be timed out ' + str(sessionAge) + ' seconds old'
+                # pop returns the value and removes it from the dict
+                estConnections.pop(session['proxy_target'])
             else:
                 print session['session_id'] + ' in estConnections ' + str(sessionAge) + ' seconds old, not timing out'
         else:
-            print session['session_id'] + ' not in estConnections '
+            print session['session_id'] + ' not in estConnections, creating dummy value'
+            estConnections[session['proxy_target']] = now - 300
+
+    return estConnections
 
 def main():
     # needed only to initialize
@@ -85,8 +88,10 @@ def main():
 # find connections no longer in proxy_map: remove from connection dict
 # save pickle file
 
-    estConnections = est_connections(pickleFile, nginxContainerName)
-    marker(get_proxy_map(proxyMapUrl), estConnections,int(timeout))
+    oldConnectionMap = read_pickle_data(filename)
+    estConnections = est_connections(oldConnectionMap, nginxContainerName)
+    newConnectionMap = marker(get_proxy_map(proxyMapUrl), estConnections,int(timeout))
+    save_pickle_data(newConnectionMap, filename)
 #    pp.pprint(get_proxy_map(proxyMapUrl))
 #    pp.pprint(est_connections())
 

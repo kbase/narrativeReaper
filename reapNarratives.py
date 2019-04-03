@@ -18,7 +18,7 @@ pp = pprint.PrettyPrinter(indent=4)
 
 def est_connections():
 
-    connectionMap = []
+    connectionMap = {}
     timestamp = time.time()
 
     containerName='r-next-core-nginx-1-edfd1207'

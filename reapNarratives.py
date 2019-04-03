@@ -92,16 +92,20 @@ def reaper(currentProxyMap, localProxyMap, shutdownUrl,estConnections,timeout):
 #            pp.pprint(localProxyMap[session['session_id']])
             sessionAge = now - float(localProxyMap[session['session_id']]['last_seen'])
             if sessionAge > timeout:
-                print session['session_id'] + ' in proxy map to be timed out ' + str(sessionAge) + ' seconds old'
+                print session['session_id'] + ' in current proxy map to be timed out ' + str(sessionAge) + ' seconds old'
                 if shutdown_session(shutdownUrl,session['session_id']):
                     # pop returns the value and removes it from the dict
                     localProxyMap.pop(session['session_id'])
                 else:
-                    sys.stderr.write("unable to delete session " + session['session_id'] + " !\n")
+                    sys.stderr.write("unable to delete current session " + session['session_id'] + " !\n")
             else:
-                print session['session_id'] + ' in proxy map ' + str(sessionAge) + ' seconds old, not reaping'
+                print session['session_id'] + ' in current proxy map ' + str(sessionAge) + ' seconds old, not reaping'
 
     localEntriesToDelete = []
+
+# it's possible a narrative could be deleted in the nginx proxy map but still
+# appear in the local proxy map (e.g., if /narrative_shutdown_noauth/userid
+# was called outside this script).  this part cleans up the local proxy map
 
 # this seems clumsy
     for localSessionId in localProxyMap:

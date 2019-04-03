@@ -158,7 +158,7 @@ def main():
     newProxyMap = reaper(get_proxy_map(args.proxyMapUrl), oldProxyMap, args.shutdownUrl, estConnections, int(args.timeout), args.reapContainers,args.verbose)
     save_pickle_data(newProxyMap, args.pickleFilePath)
 
-    if verbose:
+    if args.verbose:
         pp.pprint(newProxyMap)
 
 if __name__ == "__main__":

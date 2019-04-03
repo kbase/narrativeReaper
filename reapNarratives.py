@@ -24,7 +24,7 @@ def read_pickle_data(filename):
 
 def save_pickle_data(obj, filename):
     fh = open (filename, 'w')
-    data = pickle.dump(obj, fh, 0)
+    data = pickle.dump(obj, fh)
     fh.close()
     
 def est_connections():

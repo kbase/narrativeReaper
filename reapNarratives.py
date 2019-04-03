@@ -8,6 +8,7 @@ import pprint
 import docker
 import subprocess
 import pickle
+import time
 
 import urllib3
 # there is a way to only disable InsecurePlatformWarning but I can't find it now
@@ -16,13 +17,18 @@ urllib3.disable_warnings()
 pp = pprint.PrettyPrinter(indent=4)
 
 def est_connections():
+
+    connectionMap = []
+    timestamp = time.time()
+
     containerName='r-next-core-nginx-1-edfd1207'
     netstatOut = subprocess.check_output(['docker','exec',containerName,'netstat','-nt'])
     for line in netstatOut.split('\n'):
         if 'ESTABLISHED' not in line:
             continue
         splitLine = line.split()
-        print splitLine[4]
+        connectionMap[splitLine[4]] = timestamp
+
 #    dockerClient = docker.from_env()
 #    print dockerClient
 #    nginxContainer = dockerClient.containers.get(containerName)
@@ -30,7 +36,8 @@ def est_connections():
 #    allConnections = psutil.net_connections()
 #    for conn in allConnections:
 #        pp.pprint(conn)
-#    return allConnections
+
+    return connectionMap
 
 def get_proxy_map(proxyMapUrl):
     proxy_map = requests.get(proxyMapUrl)

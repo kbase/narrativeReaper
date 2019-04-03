@@ -19,9 +19,9 @@ def est_connections():
     containerName='r-next-core-nginx-1-edfd1207'
     netstatOut = subprocess.check_output(['docker','exec',containerName,'netstat','-nt'])
     for line in netstatOut.split('\n'):
-        splitLine = line.split()
-        if splitLine == '':
+        if 'ESTABLISHED' not in line:
             continue
+        splitLine = line.split()
         if splitLine[0] != 'tcp':
             continue
         print splitLine[4]

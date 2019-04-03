@@ -75,10 +75,10 @@ def main():
     # put this in an if which sees if file exists and inits if not
 
     pickleFile = 'proxymap.pickle'
-    nginxContainerName = 'r-ci-core-nginx-1-352089d2'
     proxyMapUrl=sys.argv[1]
+    nginxContainerName = sys.argv[2]
 
-    if (not os.path.isfile('/path/to/file')):
+    if (not os.path.isfile(pickleFile)):
         save_pickle_data({}, pickleFile)
 
 # read in connections (from pickle file and current)

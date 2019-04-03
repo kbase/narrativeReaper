@@ -81,7 +81,7 @@ def main():
 # find connections no longer in proxy_map: remove from connection dict
 # save pickle file
 
-    proxyMapUrl='https://next.kbase.us/proxy_map'
+    proxyMapUrl=sys.argv[1]
     marker(get_proxy_map(proxyMapUrl))
 #    pp.pprint(get_proxy_map(proxyMapUrl))
 #    pp.pprint(est_connections())

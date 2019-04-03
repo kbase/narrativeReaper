@@ -129,9 +129,11 @@ def main():
     parser.add_argument('--pickleFilePath')
     parser.add_argument('--shutdownUrl')
     parser.add_argument('--verbose', '-v', action='store_true')
+    parser.add_argument('--reapContainers', default=False, action='store_true')
     parser.add_argument('--timeout', type=int, default=600)
     args = parser.parse_args()
     print args.verbose
+    print args.reapContainers
 
 #    proxyMapUrl=sys.argv[1]
 #    nginxContainerName = sys.argv[2]

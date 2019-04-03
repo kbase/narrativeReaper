@@ -74,9 +74,9 @@ def main():
     # needed only to initialize
     # put this in an if which sees if file exists and inits if not
 
-    pickleFile = 'proxymap.pickle'
     proxyMapUrl=sys.argv[1]
     nginxContainerName = sys.argv[2]
+    pickleFile = sys.argv[3]
 
     if (not os.path.isfile(pickleFile)):
         sys.stderr.write("creating new pickle file " + pickleFile + "\n")

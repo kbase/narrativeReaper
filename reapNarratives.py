@@ -1,14 +1,15 @@
 #!/usr/bin/python
 
-import requests
 import sys
 import os
-import json
-import pprint
-import docker
-import subprocess
 import pickle
 import time
+import json
+import requests
+# ideally would use the docker lib, for now use a subprocess to exec into the container
+import subprocess
+#import docker
+import pprint
 # was hoping to use psutil.net_connections() but the container runs in a different namespace
 #import psutil
 

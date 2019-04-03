@@ -16,7 +16,7 @@ pp = pprint.PrettyPrinter(indent=4)
 
 def est_connections():
     containerName='r-next-core-nginx-1-edfd1207'
-    netstatOut = subprocess.check_output('docker','exec',containerName,'netstat','-nt')
+    netstatOut = subprocess.check_output(['docker','exec',containerName,'netstat','-nt'])
     pp.pprint(netstatOut)
 #    dockerClient = docker.from_env()
 #    print dockerClient

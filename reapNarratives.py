@@ -63,7 +63,13 @@ def get_proxy_map(proxyMapUrl):
 def marker(proxyMap):
     estConnections = est_connections()
     for session in proxyMap:
-        print session['proxy_target']
+        # skip provisioned containers
+        if session['state'] == 'queued':
+            continue
+        if session['proxy_target'] in estConnections:
+            print session['session_id'] + ' in estConnections '
+        else:
+            print session['session_id'] + ' not in estConnections '
 
 def main():
     # needed only to initialize

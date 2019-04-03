@@ -60,7 +60,7 @@ def marker(proxyMap,estConnections,timeout):
             continue
         if session['proxy_target'] in estConnections:
             sessionAge = now - session['proxy_target']
-            print session['session_id'] + ' in estConnections ' + str(sessionAge) + ' seconds old
+            print session['session_id'] + ' in estConnections ' + str(sessionAge) + ' seconds old'
         else:
             print session['session_id'] + ' not in estConnections '
 

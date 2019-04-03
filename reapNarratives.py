@@ -82,6 +82,10 @@ def marker(currentProxyMap, localProxyMap, shutdownUrl,estConnections,timeout):
 #            localProxyMap[session['session_id']] = session
 #            localProxyMap[session['session_id']]['age'] = sessionAge
 
+    for localSession in localProxyMap:
+        if localSession['session_id'] not in currentProxyMap:
+            print localSession['session_id'] + ' not in current proxy map, removing from local map'
+
     return localProxyMap
 
 def main():

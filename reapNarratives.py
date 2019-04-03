@@ -96,11 +96,11 @@ def reaper(currentProxyMap, localProxyMap, shutdownUrl,estConnections,timeout, r
             sessionAge = now - float(localProxyMap[session['session_id']]['last_seen'])
             if sessionAge > timeout:
                 if reapContainers:
-                print session['session_id'] + ' in current proxy map to be reaped, ' + str(sessionAge) + ' seconds old'
+                    print session['session_id'] + ' in current proxy map to be reaped, ' + str(sessionAge) + ' seconds old'
                     if shutdown_session(shutdownUrl,session['session_id']):
                         # pop returns the value and removes it from the dict
                         localProxyMap.pop(session['session_id'])
-                   else:
+                    else:
                         sys.stderr.write("unable to delete current session " + session['session_id'] + " !\n")
                 else:
                     print session['session_id'] + ' in current proxy map would be reaped, ' + str(sessionAge) + ' seconds old'

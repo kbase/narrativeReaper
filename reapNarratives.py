@@ -60,7 +60,10 @@ def marker(proxyMap,estConnections,timeout):
             continue
         if session['proxy_target'] in estConnections:
             sessionAge = now - estConnections[session['proxy_target']]
-            print session['session_id'] + ' in estConnections ' + str(sessionAge) + ' seconds old'
+            if sessionAge > timeout:
+                print session['session_id'] + ' in estConnections to be timed out' + str(sessionAge) + ' seconds old'
+            else:
+                print session['session_id'] + ' in estConnections ' + str(sessionAge) + ' seconds old, not timing out'
         else:
             print session['session_id'] + ' not in estConnections '
 
@@ -71,7 +74,7 @@ def main():
     proxyMapUrl=sys.argv[1]
     nginxContainerName = sys.argv[2]
     pickleFile = sys.argv[3]
-    timeout = 600
+    timeout = sys.argv[4]
 
     if (not os.path.isfile(pickleFile)):
         sys.stderr.write("creating new pickle file " + pickleFile + "\n")

@@ -98,7 +98,7 @@ def main():
 # save pickle file
 
     oldProxyMap = read_pickle_data(pickleFile)
-    estConnections = est_connections(oldConnectionMap, nginxContainerName)
+    estConnections = est_connections(oldProxyMap, nginxContainerName)
     newProxyMap = marker(get_proxy_map(proxyMapUrl), shutdownUrl, estConnections, int(timeout))
     save_pickle_data(newProxyMap, pickleFile)
 #    pp.pprint(get_proxy_map(proxyMapUrl))

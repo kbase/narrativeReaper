@@ -86,7 +86,7 @@ def main():
 # save pickle file
 
     estConnections = est_connections(pickleFile, nginxContainerName)
-    marker(get_proxy_map(proxyMapUrl), estConnections,timeout)
+    marker(get_proxy_map(proxyMapUrl), estConnections,int(timeout))
 #    pp.pprint(get_proxy_map(proxyMapUrl))
 #    pp.pprint(est_connections())
 

@@ -50,6 +50,7 @@ def est_connections(containerName):
     # would prefer to use docker lib but not working at the moment
     netstatOut = subprocess.check_output(['docker','exec',containerName,'netstat','-nt'])
     for line in netstatOut.split('\n'):
+# these are a bit crude, assumes that narrative sockets are all ESTABLISHED and on port 8888
         if 'ESTABLISHED' not in line:
             continue
         if '8888' not in line:

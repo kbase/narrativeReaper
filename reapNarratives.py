@@ -53,6 +53,7 @@ def est_connections():
 #        pp.pprint(conn)
 
     save_pickle_data(connectionMap, 'proxymap.pickle')
+    pp.pprint(connectionMap)
     return connectionMap
 
 def get_proxy_map(proxyMapUrl):

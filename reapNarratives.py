@@ -61,6 +61,9 @@ def marker(proxyMap):
         print session['last_ip']
 
 def main():
+    # needed only to initialize
+    save_pickle_data('proxymap.pickle')
+
     proxyMapUrl='https://next.kbase.us/proxy_map'
     marker(get_proxy_map(proxyMapUrl))
 #    pp.pprint(get_proxy_map(proxyMapUrl))

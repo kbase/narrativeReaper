@@ -2,6 +2,7 @@
 
 import requests
 import sys
+import os
 import json
 #import psutil
 import pprint
@@ -74,14 +75,18 @@ def marker(proxyMap):
 def main():
     # needed only to initialize
     # put this in an if which sees if file exists and inits if not
-#    save_pickle_data({}, 'proxymap.pickle')
+
+    pickleFile = 'proxymap.pickle'
+    proxyMapUrl=sys.argv[1]
+
+    if (not os.path.isfile('/path/to/file')):
+        save_pickle_data({}, pickleFile)
 
 # read in connections (from pickle file and current)
 # find connections in proxy_map but aged out/idle: DELETE and remove from connection dict
 # find connections no longer in proxy_map: remove from connection dict
 # save pickle file
 
-    proxyMapUrl=sys.argv[1]
     marker(get_proxy_map(proxyMapUrl))
 #    pp.pprint(get_proxy_map(proxyMapUrl))
 #    pp.pprint(est_connections())

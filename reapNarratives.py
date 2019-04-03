@@ -106,7 +106,7 @@ def reaper(currentProxyMap, localProxyMap, shutdownUrl,estConnections,timeout, r
                     else:
                         sys.stderr.write("unable to delete current session " + session['session_id'] + " !\n")
                 else:
-                    print session['session_id'] + ' in current proxy map would be reaped, ' + str(sessionAge) + ' seconds old'
+                    print session['session_id'] + ' ' + str(sessionAge) + ' seconds old'
 
             else:
                 if verbose:

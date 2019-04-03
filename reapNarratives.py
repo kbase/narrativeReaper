@@ -82,7 +82,7 @@ def reaper(currentProxyMap, localProxyMap, shutdownUrl,estConnections,timeout):
             localProxyMap[session['session_id']] = session
             localProxyMap[session['session_id']]['last_seen'] = estConnections[session['proxy_target']]
         else:
-            if not exists localProxyMap[session['session_id']]:
+            if session['session_id'] not in localProxyMap:
                 sys.stderr.write("session " + session['session_id'] + " not in local proxy map, creating dummy entry\n")
                 localProxyMap[session['session_id']] = session
                 localProxyMap[session['session_id']]['last_seen'] = now()

@@ -59,7 +59,7 @@ def marker(proxyMap,estConnections,timeout):
         if session['state'] == 'queued':
             continue
         if session['proxy_target'] in estConnections:
-            sessionAge = now - float(session['proxy_target'])
+            sessionAge = now - estConnections[session['proxy_target']]
             print session['session_id'] + ' in estConnections ' + str(sessionAge) + ' seconds old'
         else:
             print session['session_id'] + ' not in estConnections '

@@ -91,7 +91,7 @@ def marker(currentProxyMap, localProxyMap, shutdownUrl,estConnections,timeout):
     for localSessionId in localProxyMap:
         if localSessionId not in currentProxyMapUsers:
             print localSessionId + ' not in current proxy map, removing local map entry'
-            localProxyMap.pop(localSessionId)
+            del localProxyMap[localSessionId]
 
     return localProxyMap
 

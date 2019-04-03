@@ -34,6 +34,12 @@ def shutdown_session(url,sessionId):
     sys.stderr.write("about to delete " + deleteUrl + " \n")
 
     response = requests.delete(deleteUrl)
+    if response.status_code == requests.codes.ok:
+        sys.stderr.write("successfully deleted " + deleteUrl + " \n")
+    else:
+# need better error reporting here
+        sys.stderr.write("deleting " + deleteUrl + " failed!\n")
+        
     return response.status_code == requests.codes.ok
 
 def est_connections(containerName):

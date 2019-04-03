@@ -31,6 +31,7 @@ def est_connections():
 
     filename='proxymap.pickle'
     connectionMap = read_pickle_data(filename)
+    pp.pprint(connectionMap)
     timestamp = time.time()
 
     containerName='r-next-core-nginx-1-edfd1207'

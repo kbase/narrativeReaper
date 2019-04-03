@@ -130,7 +130,7 @@ def main():
     parser.add_argument('--shutdownUrl')
     parser.add_argument('--timeout', type=int)
     args = parser.parse_args()
-    print args
+#    print args
 
 #    proxyMapUrl=sys.argv[1]
 #    nginxContainerName = sys.argv[2]

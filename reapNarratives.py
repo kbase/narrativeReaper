@@ -102,6 +102,8 @@ def main():
     estConnections = est_connections(nginxContainerName)
     newProxyMap = marker(get_proxy_map(proxyMapUrl), oldProxyMap, shutdownUrl, estConnections, int(timeout))
     save_pickle_data(newProxyMap, pickleFile)
+
+    pp.pprint(newProxyMap)
 #    pp.pprint(get_proxy_map(proxyMapUrl))
 #    pp.pprint(est_connections())
 

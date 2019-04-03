@@ -88,10 +88,10 @@ def main():
 # find connections no longer in proxy_map: remove from connection dict
 # save pickle file
 
-    oldConnectionMap = read_pickle_data(filename)
+    oldConnectionMap = read_pickle_data(pickleFile)
     estConnections = est_connections(oldConnectionMap, nginxContainerName)
     newConnectionMap = marker(get_proxy_map(proxyMapUrl), estConnections,int(timeout))
-    save_pickle_data(newConnectionMap, filename)
+    save_pickle_data(newConnectionMap, pickleFile)
 #    pp.pprint(get_proxy_map(proxyMapUrl))
 #    pp.pprint(est_connections())
 

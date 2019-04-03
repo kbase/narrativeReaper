@@ -80,7 +80,8 @@ def reaper(currentProxyMap, localProxyMap, shutdownUrl,estConnections,timeout, r
         currentProxyMapUsers.append(session['session_id'])
 
         if session['proxy_target'] in estConnections:
-            print session['session_id'] + ' currently has an established connection, updating local map'
+            if verbose:
+                print session['session_id'] + ' currently has an established connection, updating local map'
 # use what's currently in active proxy map, in case it's a new connection
             localProxyMap[session['session_id']] = session
             localProxyMap[session['session_id']]['last_seen'] = estConnections[session['proxy_target']]
@@ -89,14 +90,16 @@ def reaper(currentProxyMap, localProxyMap, shutdownUrl,estConnections,timeout, r
 # if we are here, it probably means a user opened a narrative then closed the browser before next run
 # of reapNarratives.  create a bogus local map entry, worst case scenario it will be expired in timeout
 # seconds
-                sys.stderr.write("session " + session['session_id'] + " not in local proxy map, creating dummy entry\n")
+                if verbose:
+                    sys.stderr.write("session " + session['session_id'] + " not in local proxy map, creating dummy entry\n")
                 localProxyMap[session['session_id']] = session
                 localProxyMap[session['session_id']]['last_seen'] = now
 #            pp.pprint(localProxyMap[session['session_id']])
             sessionAge = now - float(localProxyMap[session['session_id']]['last_seen'])
             if sessionAge > timeout:
                 if reapContainers:
-                    print session['session_id'] + ' in current proxy map to be reaped, ' + str(sessionAge) + ' seconds old'
+                    if verbose:
+                        print session['session_id'] + ' in current proxy map to be reaped, ' + str(sessionAge) + ' seconds old'
                     if shutdown_session(shutdownUrl,session['session_id']):
                         # pop returns the value and removes it from the dict
                         localProxyMap.pop(session['session_id'])
@@ -106,7 +109,8 @@ def reaper(currentProxyMap, localProxyMap, shutdownUrl,estConnections,timeout, r
                     print session['session_id'] + ' in current proxy map would be reaped, ' + str(sessionAge) + ' seconds old'
 
             else:
-                print session['session_id'] + ' in current proxy map ' + str(sessionAge) + ' seconds old, not reaping'
+                if verbose:
+                    print session['session_id'] + ' in current proxy map ' + str(sessionAge) + ' seconds old, not reaping'
 
     localEntriesToDelete = []
 
@@ -117,7 +121,8 @@ def reaper(currentProxyMap, localProxyMap, shutdownUrl,estConnections,timeout, r
 # this seems clumsy
     for localSessionId in localProxyMap:
         if localSessionId not in currentProxyMapUsers:
-            print localSessionId + ' not in current proxy map, removing local map entry'
+            if verbose:
+                print localSessionId + ' not in current proxy map, removing local map entry'
             localEntriesToDelete.append(localSessionId)
 # can't change dict while iterating over it, so need a separate loop
     for localSessionId in localEntriesToDelete:
@@ -136,8 +141,6 @@ def main():
     parser.add_argument('--reapContainers', default=False, action='store_true')
     parser.add_argument('--timeout', type=int, default=600)
     args = parser.parse_args()
-    print args.verbose
-    print args.reapContainers
 
 #    proxyMapUrl=sys.argv[1]
 #    nginxContainerName = sys.argv[2]

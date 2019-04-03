@@ -59,8 +59,7 @@ def get_proxy_map(proxyMapUrl):
     proxy_map = requests.get(proxyMapUrl)
     return proxy_map.json()
 
-def marker(proxyMap,pickleFile,nginxContainerName):
-    estConnections = est_connections(pickleFile,nginxContainerName)
+def marker(proxyMap,estConnections):
     for session in proxyMap:
         # skip provisioned containers
         if session['state'] == 'queued':
@@ -87,7 +86,8 @@ def main():
 # find connections no longer in proxy_map: remove from connection dict
 # save pickle file
 
-    marker(get_proxy_map(proxyMapUrl),pickleFile,nginxContainerName)
+    estConnections = est_connections(pickleFile, nginxContainerName)
+    marker(get_proxy_map(proxyMapUrl), estConnections)
 #    pp.pprint(get_proxy_map(proxyMapUrl))
 #    pp.pprint(est_connections())
 

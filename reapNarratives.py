@@ -24,7 +24,7 @@ def read_pickle_data(filename):
 
 def save_pickle_data(obj, filename):
     fh = open (filename, 'w')
-    data = pickle.dump(obj, fh)
+    data = pickle.dump(obj, fh, 0)
     fh.close()
     
 def est_connections():
@@ -64,7 +64,7 @@ def marker(proxyMap):
 
 def main():
     # needed only to initialize
-#    save_pickle_data({}, 'proxymap.pickle')
+    save_pickle_data({}, 'proxymap.pickle')
 
     proxyMapUrl='https://next.kbase.us/proxy_map'
     marker(get_proxy_map(proxyMapUrl))

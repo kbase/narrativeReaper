@@ -125,28 +125,30 @@ def main():
 
     parser = argparse.ArgumentParser(description='List and by default reap old narrative containers.')
     parser.add_argument('--proxyMapUrl')
+    parser.add_argument('--nginxContainerName')
+    parser.add_argument('--pickleFilePath')
+    parser.add_argument('--shutdownUrl')
+    parser.add_argument('--timeout', type=int)
     args = parser.parse_args()
     print args
 
     proxyMapUrl=sys.argv[1]
     nginxContainerName = sys.argv[2]
-    pickleFile = sys.argv[3]
+    pickleFilePath = sys.argv[3]
     shutdownUrl = sys.argv[4]
     timeout = sys.argv[5]
 
 # needed only to initialize
-    if (not os.path.isfile(pickleFile)):
-        sys.stderr.write("creating new pickle file " + pickleFile + "\n")
-        save_pickle_data({}, pickleFile)
+    if (not os.path.isfile(pickleFilePath)):
+        sys.stderr.write("creating new pickle file " + pickleFilePath + "\n")
+        save_pickle_data({}, pickleFilePath)
 
-    oldProxyMap = read_pickle_data(pickleFile)
+    oldProxyMap = read_pickle_data(pickleFilePath)
     estConnections = est_connections(nginxContainerName)
     newProxyMap = reaper(get_proxy_map(proxyMapUrl), oldProxyMap, shutdownUrl, estConnections, int(timeout))
-    save_pickle_data(newProxyMap, pickleFile)
+    save_pickle_data(newProxyMap, pickleFilePath)
 
-    pp.pprint(newProxyMap)
-#    pp.pprint(get_proxy_map(proxyMapUrl))
-#    pp.pprint(est_connections())
+#    pp.pprint(newProxyMap)
 
 if __name__ == "__main__":
     main()

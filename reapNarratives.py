@@ -22,8 +22,6 @@ def est_connections():
         if 'ESTABLISHED' not in line:
             continue
         splitLine = line.split()
-        if splitLine[0] != 'tcp':
-            continue
         print splitLine[4]
 #    dockerClient = docker.from_env()
 #    print dockerClient

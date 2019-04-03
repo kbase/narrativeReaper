@@ -124,7 +124,7 @@ def reaper(currentProxyMap, localProxyMap, shutdownUrl,estConnections,timeout):
 def main():
 
     parser = argparse.ArgumentParser(description='List and by default reap old narrative containers.')
-    parser.addArgument('--proxyMapUrl')
+    parser.add_argument('--proxyMapUrl')
     args = parser.parse_args()
     print args
 

@@ -102,8 +102,11 @@ def reaper(currentProxyMap, localProxyMap, shutdownUrl,estConnections,timeout):
     return localProxyMap
 
 def main():
-    # needed only to initialize
-    # put this in an if which sees if file exists and inits if not
+# read in previous proxy map from pickle file
+# read connections fron inside container
+# find connections in proxy_map but aged out/idle: DELETE and remove from local map dict
+# find connections no longer in proxy_map: remove from local map dict
+# save local proxy map pickle file
 
     proxyMapUrl=sys.argv[1]
     nginxContainerName = sys.argv[2]
@@ -111,14 +114,11 @@ def main():
     shutdownUrl = sys.argv[4]
     timeout = sys.argv[5]
 
+    # needed only to initialize
+    # put this in an if which sees if file exists and inits if not
     if (not os.path.isfile(pickleFile)):
         sys.stderr.write("creating new pickle file " + pickleFile + "\n")
         save_pickle_data({}, pickleFile)
-
-# read in connections (from pickle file and current)
-# find connections in proxy_map but aged out/idle: DELETE and remove from connection dict
-# find connections no longer in proxy_map: remove from connection dict
-# save pickle file
 
     oldProxyMap = read_pickle_data(pickleFile)
     estConnections = est_connections(nginxContainerName)

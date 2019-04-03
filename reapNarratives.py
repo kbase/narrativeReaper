@@ -28,7 +28,10 @@ def save_pickle_data(obj, filename):
     fh = open (filename, 'w')
     data = pickle.dump(obj, fh)
     fh.close()
-    
+
+def shutdown_session(sessionId,url):
+    return 0
+
 def est_connections(connectionMap,containerName):
 
     timestamp = time.time()
@@ -60,8 +63,11 @@ def marker(proxyMap,estConnections,timeout):
             sessionAge = now - estConnections[session['proxy_target']]
             if sessionAge > timeout:
                 print session['session_id'] + ' in estConnections to be timed out ' + str(sessionAge) + ' seconds old'
-                # pop returns the value and removes it from the dict
-                estConnections.pop(session['proxy_target'])
+                if shutdown_session(session['session_id']):
+                    # pop returns the value and removes it from the dict
+                    estConnections.pop(session['proxy_target'])
+                else:
+                    sys.stderr.write("unable to delete session " + session['session_id'] + " !\n")
             else:
                 print session['session_id'] + ' in estConnections ' + str(sessionAge) + ' seconds old, not timing out'
         else:
@@ -90,7 +96,7 @@ def main():
 
     oldConnectionMap = read_pickle_data(pickleFile)
     estConnections = est_connections(oldConnectionMap, nginxContainerName)
-    newConnectionMap = marker(get_proxy_map(proxyMapUrl), estConnections,int(timeout))
+    newConnectionMap = marker(get_proxy_map(proxyMapUrl), estConnections, int(timeout))
     save_pickle_data(newConnectionMap, pickleFile)
 #    pp.pprint(get_proxy_map(proxyMapUrl))
 #    pp.pprint(est_connections())

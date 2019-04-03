@@ -33,12 +33,12 @@ def save_pickle_data(obj, filename):
 
 def shutdown_session(url,sessionId):
     deleteUrl = url + '/' + sessionId
-    sys.stderr.write("about to delete " + deleteUrl + " \n")
+#    sys.stderr.write("about to delete " + deleteUrl + " \n")
 
     response = requests.delete(deleteUrl)
-    if response.status_code == requests.codes.ok:
-        sys.stderr.write("successfully deleted " + deleteUrl + " \n")
-    else:
+    if response.status_code != requests.codes.ok:
+#        sys.stderr.write("successfully deleted " + deleteUrl + " \n")
+#    else:
 # need better error reporting here
         sys.stderr.write("deleting " + deleteUrl + " failed!\n")
         

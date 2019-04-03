@@ -128,7 +128,7 @@ def main():
     parser.add_argument('--nginxContainerName')
     parser.add_argument('--pickleFilePath')
     parser.add_argument('--shutdownUrl')
-    parser.add_argument('--timeout', type=int)
+    parser.add_argument('--timeout', type=int, default=600)
     args = parser.parse_args()
 #    print args
 

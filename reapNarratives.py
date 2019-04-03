@@ -65,7 +65,7 @@ def marker(currentProxyMap, localProxyMap, shutdownUrl,estConnections,timeout):
             localProxyMap[session['session_id']] = session
             localProxyMap[session['session_id']]['last_seen'] = estConnections[session['proxy_target']]
         else:
-            sessionAge = now - float(localProxyMap[session['session_id']]['last_seen']])
+            sessionAge = now - float(localProxyMap[session['session_id']['last_seen']])
             if sessionAge > timeout:
                 print session['session_id'] + ' in proxy map to be timed out ' + str(sessionAge) + ' seconds old'
                 if shutdown_session(shutdownUrl,session['session_id']):

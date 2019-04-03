@@ -30,10 +30,11 @@ def save_pickle_data(obj, filename):
     fh.close()
 
 def shutdown_session(url,sessionId):
-    sys.stderr.write("about to delete " + url + '/' + sessionId + " \n")
+    deleteUrl = url + '/' + sessionId
+    sys.stderr.write("about to delete " + deleteUrl + " \n")
 
-#    response = requests.delete(url+'/'+sessionId)
-    return 0
+    response = requests.delete(deleteUrl)
+    return response.status_code == requests.codes.ok
 
 def est_connections(containerName):
 

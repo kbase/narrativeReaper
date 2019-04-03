@@ -131,23 +131,22 @@ def main():
     parser.add_argument('--timeout', type=int)
     args = parser.parse_args()
     print args
-    return
 
-    proxyMapUrl=sys.argv[1]
-    nginxContainerName = sys.argv[2]
-    pickleFilePath = sys.argv[3]
-    shutdownUrl = sys.argv[4]
-    timeout = sys.argv[5]
+#    proxyMapUrl=sys.argv[1]
+#    nginxContainerName = sys.argv[2]
+#    pickleFilePath = sys.argv[3]
+#    shutdownUrl = sys.argv[4]
+#    timeout = sys.argv[5]
 
 # needed only to initialize
-    if (not os.path.isfile(pickleFilePath)):
-        sys.stderr.write("creating new pickle file " + pickleFilePath + "\n")
-        save_pickle_data({}, pickleFilePath)
+    if (not os.path.isfile(args.pickleFilePath)):
+        sys.stderr.write("creating new pickle file " + args.pickleFilePath + "\n")
+        save_pickle_data({}, args.pickleFilePath)
 
-    oldProxyMap = read_pickle_data(pickleFilePath)
-    estConnections = est_connections(nginxContainerName)
-    newProxyMap = reaper(get_proxy_map(proxyMapUrl), oldProxyMap, shutdownUrl, estConnections, int(timeout))
-    save_pickle_data(newProxyMap, pickleFilePath)
+    oldProxyMap = read_pickle_data(args.pickleFilePath)
+    estConnections = est_connections(args.nginxContainerName)
+    newProxyMap = reaper(get_proxy_map(args.proxyMapUrl), oldProxyMap, args.shutdownUrl, estConnections, int(args.timeout))
+    save_pickle_data(newProxyMap, args.pickleFilePath)
 
 #    pp.pprint(newProxyMap)
 

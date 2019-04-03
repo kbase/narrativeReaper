@@ -72,9 +72,9 @@ def marker(currentProxyMap, localProxyMap, shutdownUrl,estConnections,timeout):
             else:
                 print session['session_id'] + ' in proxy map ' + str(sessionAge) + ' seconds old, updating local map'
                 localProxyMap[session['session_id']] = session
-                localProxyMap[session['session_id']]['age'] = sessionAge
+                localProxyMap[session['session_id']]['last_seen'] = estConnections[session['proxy_target']]
         else:
-            print session['session_id'] + ' not in estConnections'
+            print session['session_id'] + ' not in estConnections, '
 #            localProxyMap[session['session_id']] = session
 #            localProxyMap[session['session_id']]['age'] = sessionAge
 

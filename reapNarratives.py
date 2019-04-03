@@ -19,7 +19,8 @@ def est_connections():
     containerName='r-next-core-nginx-1-edfd1207'
     netstatOut = subprocess.check_output(['docker','exec',containerName,'netstat','-nt'])
     for line in netstatOut.split('\n'):
-        print line.split()[4]
+        splitLine = line.split()
+        print splitLine[4]
 #    dockerClient = docker.from_env()
 #    print dockerClient
 #    nginxContainer = dockerClient.containers.get(containerName)

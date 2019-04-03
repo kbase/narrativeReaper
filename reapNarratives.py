@@ -63,7 +63,7 @@ def get_proxy_map(proxyMapUrl):
 def marker(proxyMap):
     estConnections = est_connections()
     for session in proxyMap:
-        print session
+        print session['proxy_target']
 
 def main():
     # needed only to initialize

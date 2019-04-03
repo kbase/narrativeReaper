@@ -32,9 +32,9 @@ def save_pickle_data(obj, filename):
 def est_connections(filename,containerName):
 
     connectionMap = read_pickle_data(filename)
-#    pp.pprint(connectionMap)
     timestamp = time.time()
 
+    # would prefer to use docker lib but not working at the moment
     netstatOut = subprocess.check_output(['docker','exec',containerName,'netstat','-nt'])
     for line in netstatOut.split('\n'):
         if 'ESTABLISHED' not in line:
@@ -44,16 +44,7 @@ def est_connections(filename,containerName):
         splitLine = line.split()
         connectionMap[splitLine[4]] = timestamp
 
-#    dockerClient = docker.from_env()
-#    print dockerClient
-#    nginxContainer = dockerClient.containers.get(containerName)
-#    allConnections = nginxContainer.exec_run('netstat -nt')
-#    allConnections = psutil.net_connections()
-#    for conn in allConnections:
-#        pp.pprint(conn)
-
     save_pickle_data(connectionMap, filename)
-#    pp.pprint(connectionMap)
     return connectionMap
 
 def get_proxy_map(proxyMapUrl):
@@ -66,7 +57,7 @@ def marker(proxyMap,estConnections):
         if session['state'] == 'queued':
             continue
         if session['proxy_target'] in estConnections:
-            print session['session_id'] + ' in estConnections '
+            print session['session_id'] + ' in estConnections ' + str(estConnections[session['proxy_target']])
         else:
             print session['session_id'] + ' not in estConnections '
 

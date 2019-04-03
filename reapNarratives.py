@@ -30,6 +30,9 @@ def save_pickle_data(obj, filename):
     fh.close()
 
 def shutdown_session(url,sessionId):
+    sys.stderr.write("about to delete " + url + '/' + sessionId + " \n")
+
+#    response = requests.delete(url+'/'+sessionId)
     return 0
 
 def est_connections(containerName):
@@ -63,7 +66,7 @@ def reaper(currentProxyMap, localProxyMap, shutdownUrl,estConnections,timeout):
         if session['state'] == 'queued':
             continue
 
-        # real username in proxy map, track to compare to local map
+        # real username is in proxy map, track to compare to local map
         currentProxyMapUsers.append(session['session_id'])
 
         if session['proxy_target'] in estConnections:
@@ -83,13 +86,10 @@ def reaper(currentProxyMap, localProxyMap, shutdownUrl,estConnections,timeout):
                     sys.stderr.write("unable to delete session " + session['session_id'] + " !\n")
             else:
                 print session['session_id'] + ' in proxy map ' + str(sessionAge) + ' seconds old, not reaping'
-#            print session['session_id'] + ' not in estConnections, skipping'
-#            print session['session_id'] + ' not in estConnections, age ' + str(now - float(localProxyMap['last_seen']))
-#            localProxyMap[session['session_id']] = session
-#            localProxyMap[session['session_id']]['age'] = sessionAge
 
     localEntriesToDelete = []
 
+# this seems clumsy
     for localSessionId in localProxyMap:
         if localSessionId not in currentProxyMapUsers:
             print localSessionId + ' not in current proxy map, removing local map entry'

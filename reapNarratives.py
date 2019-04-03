@@ -88,10 +88,15 @@ def marker(currentProxyMap, localProxyMap, shutdownUrl,estConnections,timeout):
 #            localProxyMap[session['session_id']] = session
 #            localProxyMap[session['session_id']]['age'] = sessionAge
 
+    localEntriesToDelete = []
+
     for localSessionId in localProxyMap:
         if localSessionId not in currentProxyMapUsers:
             print localSessionId + ' not in current proxy map, removing local map entry'
-            del localProxyMap[localSessionId]
+            localEntriesToDelete.append(localSessionId)
+# can't change dict while iterating over it, so need a separate loop
+    for localSessionId in localEntriesToDelete:
+        localProxyMap.pop(localSessionId)
 
     return localProxyMap
 

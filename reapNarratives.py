@@ -61,7 +61,7 @@ def marker(currentProxyMap, localProxyMap, shutdownUrl,estConnections,timeout):
         if session['state'] == 'queued':
             continue
         if session['proxy_target'] in estConnections:
-            print session['session_id'] + ' is current in established connections, updating local map'
+            print session['session_id'] + ' currently has an established connection, updating local map'
 # use what's currently in active proxy map, in case it's a new connection
             localProxyMap[session['session_id']] = session
             localProxyMap[session['session_id']]['last_seen'] = estConnections[session['proxy_target']]

@@ -2,6 +2,8 @@ FROM kbase/kb_python:latest
 
 ADD reapNarratives.py /kb/module/
 
+RUN chmod +x /kb/module/reapNarratives.py
+
 LABEL org.label-schema.build-date=$BUILD_DATE \
       org.label-schema.vcs-url="https://github.com/kbase/narrativeReaper.git" \
       org.label-schema.vcs-ref=$VCS_REF \

@@ -16,3 +16,5 @@ LABEL org.label-schema.build-date=$BUILD_DATE \
       org.label-schema.schema-version="0.0.1" \
       us.kbase.vcs-branch=$BRANCH \
       maintainer="Keith Keller kkeller@lbl.gov"
+
+ENTRYPOINT [ "/kb/module/reapNarratives.py" ]

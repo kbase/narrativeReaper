@@ -1,6 +1,6 @@
 FROM kbase/kb_python:latest
 
-ADD reapNarratives.py /kb/module/
+COPY reapNarratives.py /kb/module/
 
 RUN chmod +x /kb/module/reapNarratives.py
 

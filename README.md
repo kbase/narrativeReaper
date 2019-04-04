@@ -8,3 +8,4 @@ To use the Docker image, run a command like below.  The Docker socket is require
 To do:
 
 * use a lock to prevent two processes clobbering the pickle file
+* use the docker Python library instead of subprocess to talk to the nginx container (or maybe use the Rancher API?)

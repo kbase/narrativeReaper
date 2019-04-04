@@ -9,3 +9,4 @@ To do:
 
 * use a lock to prevent two processes clobbering the pickle file
 * use the docker Python library instead of subprocess to talk to the nginx container (or maybe use the Rancher API?)
+* have an option to run in an infinite loop, sleeping N minutes then running reapNarratives.py ?

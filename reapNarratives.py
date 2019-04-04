@@ -91,7 +91,8 @@ def reaper(currentProxyMap, localProxyMap, shutdownUrl,estConnections,timeout, r
         else:
             if session['session_id'] not in localProxyMap:
 # if we are here, it probably means a user opened a narrative then closed the browser before next run
-# of reapNarratives.  create a bogus local map entry, worst case scenario it will be expired in timeout
+# of reapNarratives.  or it's a new pickle file, and the session was already marked 'idle' by the
+# lua marker.  create a bogus local map entry, worst case scenario it will be expired in timeout
 # seconds
                 if verbose:
                     sys.stderr.write("session " + session['session_id'] + " not in local proxy map, creating dummy entry\n")

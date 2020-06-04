@@ -63,7 +63,7 @@ def est_connections(containerName):
     return connectionMap
 
 def get_proxy_map(proxyMapUrl):
-    proxy_map = requests.get(proxyMapUrl)
+    proxy_map = requests.get(proxyMapUrl,verify=False)
     if proxy_map.status_code != 200:
         print "Got a non-200 response from proxy map! " + str(proxy_map.status_code)
         sys.exit(1)

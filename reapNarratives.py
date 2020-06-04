@@ -35,7 +35,7 @@ def shutdown_session(url,sessionId):
     deleteUrl = url + '/' + sessionId
 #    sys.stderr.write("about to delete " + deleteUrl + " \n")
 
-    response = requests.delete(deleteUrl)
+    response = requests.delete(deleteUrl,verify=False)
     if response.status_code != requests.codes.ok:
 #        sys.stderr.write("successfully deleted " + deleteUrl + " \n")
 #    else:
